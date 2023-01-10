@@ -64,6 +64,8 @@ const signUp = async (req, res) => {
         Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     };
     res.status(201).cookie("token", token, options).json({
       success: true,
@@ -126,6 +128,8 @@ const login = async (req, res) => {
           Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
+        sameSite: "none",
+        secure: true,
       };
 
       return res.status(200).cookie("token", token, options).json({
@@ -140,7 +144,12 @@ const login = async (req, res) => {
 };
 const logout = (req, res) => {
   try {
-    res.cookie("token", "", { maxAge: "1", httpOnly: true });
+    res.cookie("token", "", {
+      maxAge: "1",
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
     req.user = "";
     // console.log("deleted", req.user);
 
