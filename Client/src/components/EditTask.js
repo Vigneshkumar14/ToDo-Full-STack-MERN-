@@ -30,7 +30,7 @@ export default function EditTask(props) {
         }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         props.refresh();
       })
       .catch((error) => {
